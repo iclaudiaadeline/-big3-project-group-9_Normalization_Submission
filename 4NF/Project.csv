@@ -1,0 +1,8 @@
+ProjectID,ProjectName,ProjectType,StartDate,EndDate,SiteID,ClientID,SupervisorID
+P001,Downtown Plaza,Commercial,2024-01-10,2024-08-20,S001,C001,SUP001
+P002,Harbor Bridge,Infrastructure,2024-02-01,2025-01-30,S002,C002,SUP002
+P003,Riverside Apartments,Residential,2024-03-15,2024-11-15,S003,C003,SUP003
+P004,Green Tech Campus,Commercial,2024-04-01,2025-02-28,S004,C001,SUP001
+P005,Sunset Mall Expansion,Commercial,2024-05-10,2024-12-20,S005,C001,SUP002
+P006,Lakeside Villas,Residential,2024-06-01,2024-12-01,S006,C003,SUP003
+P007,Airport Terminal Upgrade,Infrastructure,2024-07-15,2025-06-30,S007,C002,SUP002
