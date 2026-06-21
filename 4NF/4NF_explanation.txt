@@ -1,0 +1,76 @@
+Stage 4: Fourth Normal Form (4NF) Explanation
+==============================================
+
+
+1. Which Multi-Valued Dependencies Did You Identify?
+--------------------------------------------------------
+
+Table              | MVD
+-------------------|---------------------------------------------------
+Project_Workers    | ProjectID, WorkerPhone -->> WorkerSkills
+Project_Workers    | ProjectID, WorkerPhone -->> WorkerCertifications
+Suppliers          | SupplierName -->> SupplierPhones
+Suppliers          | SupplierName -->> MaterialSupplied
+
+These are non-trivial MVDs because the attributes on the right side are independent of each other.
+
+
+2. Which Independent Lists Were Mixed Together?
+----------------------------------------------------
+
+Table              | List 1                  | List 2
+-------------------|--------------------------|------------------------
+Project_Workers    | Worker Skills            | Worker Certifications
+Suppliers          | Supplier Phone Numbers   | Materials Supplied
+
+Example of the problem:
+- For each worker, every skill is repeated for each certification they hold
+- For each supplier, every phone number is repeated for each material they supply
+
+
+3. How Did You Separate Them?
+----------------------------------
+
+Project_Workers decomposed into:
+
+1. Project_Workers - stores only project-worker relationship and hourly rate
+2. Worker_Skills - stores each skill as a separate row
+3. Worker_Certifications - stores each certification as a separate row
+
+Suppliers decomposed into:
+
+1. Suppliers - stores only supplier name and city
+2. Supplier_Phones - stores each phone number as a separate row
+3. Supplier_Materials - stores each material with unit cost as a separate row
+
+
+4. What Are the Primary Keys of the New Relationship Tables?
+------------------------------------------------------------------
+
+Table                      | Primary Key                                  | Foreign Key
+---------------------------|-----------------------------------------------|-------------------------------------------------
+Worker_Skills              | (ProjectID, WorkerPhone, WorkerSkill)          | (ProjectID, WorkerPhone) --> Project_Workers
+Worker_Certifications      | (ProjectID, WorkerPhone, WorkerCertification)  | (ProjectID, WorkerPhone) --> Project_Workers
+Supplier_Phones            | (SupplierName, SupplierPhone)                  | SupplierName --> Suppliers
+Supplier_Materials         | (SupplierName, MaterialSupplied)               | SupplierName --> Suppliers
+
+
+5. Why Is Your Final Design in 4NF?
+----------------------------------------
+
+1. All tables are in BCNF - Every determinant is a candidate key
+
+2. No non-trivial MVDs exist - All multi-valued dependencies were decomposed
+
+3. Each table contains only one multi-valued fact:
+   - Worker_Skills -> only skills
+   - Worker_Certifications -> only certifications
+   - Supplier_Phones -> only phone numbers
+   - Supplier_Materials -> only materials
+
+4. Tables already in 4NF: Project, Client, Site, Supervisor, Worker, Project_Equipment
+
+5. Eliminated anomalies:
+   - Update: Change a skill once instead of multiple times
+   - Insertion: Add a new skill without duplicating certifications
+   - Deletion: Remove a certification without losing skill data
